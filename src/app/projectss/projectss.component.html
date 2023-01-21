@@ -1,0 +1,173 @@
+<br>
+
+<div class="container"  id="pestania">
+  <div class="row align-items-center">
+    <div class="col-lg-3 text-lg-center col-sm-12 text-sm-center">
+      <h5></h5>
+      <h5>Participacion en Proyectos</h5>
+    </div>
+    <div class="col-lg-9 text-lg-start col-sm-12 text-sm-center" *ngIf="conectado()">
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalProject" role="button" data-bs-toggle="modal" data-bs-target="#modalProject" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/add.svg" alt="iconsPencel" href="#modalAddProject" role="button" data-bs-toggle="modal" data-bs-target="#modalAddProject" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" href="#modalDeleteProject" role="button" data-bs-toggle="modal" data-bs-target="#modalDeleteProject" />
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container" id="contenedorIndividual">
+  <div class="row align-items-center" *ngFor="let project of projects">
+    <div class="col-3 text-center">
+      <img class="imagenWorkEducation" src="{{ project.url_photo_project }}" alt="Imagen-empresa">
+    </div>
+    <div class="col-8 py-4">
+      <h5> {{ project.name_project }} </h5>
+      <span> {{ project.description_project }} </span> <br>
+      <div class="py-3" id="botonLink">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalMentenimiento">Ver Proyecto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- //////////// modal eliminar //////////////// -->
+
+ <div class="modal fade" id="modalDeleteProject" tabindex="-1" aria-labelledby="modalDeleteProjectLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3 align-items-center" *ngFor="let projectDelete of projects">
+            <label for="recipient-name" class="col-form-label">Nombre del Proyecto:</label><br>
+            <strong>{{projectDelete.name_project}}</strong><br>
+            <label for="recipient-name" class="col-form-label">id: {{projectDelete.id_project}}
+              <button class="btn btn-light" style="color: brown;" (click)="deleteDBProject(projectDelete.id_project)">
+                <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" />Eliminar
+              </button><br><br>
+            </label>
+            <div class="modal-footer">
+            </div>   
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- /////////////modal editar/////////////// -->
+
+ <div class="modal" id="modalProject" aria-hidden="true" aria-labelledby="modalProjectLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Proyectos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div  *ngFor="let project of projects">
+          <div class="mb-3">
+            <h5>Proyecto id: {{project.id_project}}</h5>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nombre del Proyecto:</label>
+            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="project.name_project" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Descripción:</label>
+            <textarea class="form-control" id="message-text" [(ngModel)]="project.description_project"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Foto del Proyecto (url):</label>
+            <textarea class="form-control" id="message-text" [(ngModel)]="project.url_photo_project"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Link del Proyecto:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="project.url_project" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBProject()">Guardar Cambios</button>
+      </div>
+    </div>  
+  </div>
+</div>
+
+<!-- ////////////modal de agregar experiencia new//////////////// -->
+
+<div class="modal fade" id="modalAddProject" tabindex="-1" aria-labelledby="modalAddProjectlLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          
+              <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Nombre del Proyecto:</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="name" name="nameProject" />
+              </div>
+              <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Descripción:</label>
+              <textarea type="text" class="form-control" id="recipient-name" [(ngModel)]="descripProject" name="descripcionProject"></textarea>
+              </div>
+              <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Foto del Proyecto (url):</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="urlFotoProject" name="fotoProject" />
+              </div>
+              <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Link del Proyecto:</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="urlProject" name="urlProject"/>
+              </div>
+          
+        </form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDBProject()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- // modal En construccion. -->
+
+<div class="modal" id="modalMentenimiento" aria-hidden="true" aria-labelledby="modalMentenimientoLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">En Construccion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-lg-4 offset-lg-4 col-sm-6 offset-sm-3">
+          <img style="width: 100%;" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/IconsMantenimiento%2FenMantenimiento.svg?alt=media&token=f264c12c-f8b7-4422-81e5-05200d8eab8d" alt="En Mentenimiento">
+        
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" >Entendido</button>
+      </div>
+    </div>  
+  </div>
+</div>

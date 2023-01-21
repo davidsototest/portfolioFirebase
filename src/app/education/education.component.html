@@ -1,0 +1,155 @@
+
+<br><br>
+
+<div class="container"  id="pestania">
+  <div class="row align-items-center">
+    <div class="col-lg-3 text-lg-center col-sm-12 text-sm-center">
+      <h5></h5>
+      <h5>Educacion</h5>
+    </div>
+    <div class="col-lg-9 text-lg-start col-sm-12 text-sm-center" *ngIf="conectado()">
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalEdu" role="button" data-bs-toggle="modal" data-bs-target="#modalEdu" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/add.svg" alt="iconsPencel" href="#modalAddEdu" role="button" data-bs-toggle="modal" data-bs-target="#modalAddEdu" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" href="#modalDeleteEdu" role="button" data-bs-toggle="modal" data-bs-target="#modalDeleteEdu" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="contenedorIndividual">
+  <div class="row align-items-center py-3" *ngFor="let education of educations">
+    <div class="col-3 text-center">
+      <img class="imagenWorkEducation" src="{{ education.url_photo_education }}" alt="ImagenEmpresa">
+    </div>
+    <div class="col-9">
+      <h5> {{ education.name_education }} </h5>
+      <h6> {{ education.place_education }} </h6>
+      <h6> {{ education.level_education }} </h6>
+      <span> Duracion: {{ education.duration_education }} </span>
+    </div>
+  </div>
+</div>
+
+  <!-- //////////// modal eliminar //////////////// -->
+
+  <div class="modal fade" id="modalDeleteEdu" tabindex="-1" aria-labelledby="modalDeleteEduLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar Educación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3 align-items-center" *ngFor="let eduDelete of educations">
+              <label for="recipient-name" class="col-form-label">Nombre de la Capacitación:</label><br>
+              <strong>{{eduDelete.name_education}}</strong><br>
+              <label for="recipient-name" class="col-form-label">id: {{eduDelete.id_edu}}
+                <button class="btn btn-light" style="color: brown;" (click)="deleteDBEdu(eduDelete.id_edu)">
+                  <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" />Eliminar
+                </button><br><br>
+              </label>
+              <div class="modal-footer">
+              </div>   
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- /////////////modal editar/////////////// -->
+
+ <div class="modal" id="modalEdu" aria-hidden="true" aria-labelledby="modalEduLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Educación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div  *ngFor="let eduEdit of educations">
+          <div class="mb-3">
+            <h5>Capacitación id: {{eduEdit.id_edu}}</h5>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nombre de la Capacitación:</label>
+            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="eduEdit.name_education" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nombre de la Academia o Institución:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="eduEdit.place_education" />
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Nivel de la Capacitación:</label>
+            <textarea class="form-control" id="message-text" [(ngModel)]="eduEdit.level_education"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Duración:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="eduEdit.duration_education" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Logo de la Academia o Institución (url) :</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="eduEdit.url_photo_education" />
+          </div> 
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBEdu()">Guardar Cambios</button>
+      </div>
+    </div>  
+  </div>
+</div>
+
+  <!-- ////////////modal de agregar education new//////////////// -->
+
+  <div class="modal fade" id="modalAddEdu" tabindex="-1" aria-labelledby="modalAddEduLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Educación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Nombre de la Capacitación:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="name" name="name" />
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Nivel de la Capacitación:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="nivel" name="job"/>
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Duración:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="duration" name="chores" />
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Academia o Institución:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="academia" name="duration" />
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Logo de la Academia o Institución (url):</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="url_logo" name="url_logo" />
+                </div>
+            
+          </form> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addEdu()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>

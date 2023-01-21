@@ -1,0 +1,129 @@
+<br><br>
+
+<div class="container"  id="pestania">
+  <div class="row">
+    <div class="col text-center">
+      <h5></h5>
+      <h5>Pasatiempo</h5>
+    </div>
+  </div>
+  <div class="col text-center" *ngIf="conectado()">
+    <button class="btn">
+      <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalHobbie" role="button" data-bs-toggle="modal" data-bs-target="#modalHobbie" />
+    </button>
+    <button class="btn">
+      <img id="iconEditar" src="../../assets/icons-svg/add.svg" alt="iconsPencel" href="#modalAddHobbie" role="button" data-bs-toggle="modal" data-bs-target="#modalAddHobbie" />
+    </button>
+    <button class="btn">
+      <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" href="#modalDeleteHobbie" role="button" data-bs-toggle="modal" data-bs-target="#modalDeleteHobbie" />
+    </button>
+  </div>
+</div>
+
+
+<div class="container text-center" id="contenedorIndividual"> 
+  <div class="row align-items-end">
+    <div class="row">
+      <div class="col-lg-3 col-sm-6 py-3" id="fotoHobbies" *ngFor="let hobbie of hobbies">
+        <img src="{{ hobbie.url_photo_hobbies }}" alt="imagen pasatiempo">
+        <h5> {{hobbie.name_hobbies}} </h5>
+      </div>
+    </div>
+  </div>
+</div> 
+
+ <!-- //////////// modal eliminar //////////////// -->
+
+ <div class="modal fade" id="modalDeleteHobbie" tabindex="-1" aria-labelledby="modalDeleteHobbieLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Pasatiempo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"> 
+        <form>
+          <div class="mb-3 align-items-center" *ngFor="let hobbiesDelete of hobbies">
+            <label for="recipient-name" class="col-form-label">Nombre del Pasatiempo:</label><br>
+            <strong>{{hobbiesDelete.name_hobbies}}</strong><br>
+            <label for="recipient-name" class="col-form-label">id: {{hobbiesDelete.id_hobbies}}
+              <button class="btn btn-light" style="color: brown;" (click)="deleteDBHobbie(hobbiesDelete.id_hobbies)">
+                <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" />Eliminar
+              </button><br><br>
+            </label>
+            <div class="modal-footer">
+            </div>   
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /////////////modal editar/////////////// -->
+
+<div class="modal" id="modalHobbie" aria-hidden="true" aria-labelledby="modalHobbieLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar los Pasatiempo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div  *ngFor="let HobbieEdit of hobbies">
+          <div class="mb-3">
+            <h5>Pasatiempo id: {{HobbieEdit.id_hobbies}}</h5>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nombre del Pasatiempo:</label>
+            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="HobbieEdit.name_hobbies" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Foto (url):</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="HobbieEdit.url_photo_hobbies" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBHobbies()">Guardar Cambios</button>
+      </div>
+    </div>  
+  </div>
+</div>
+
+
+  <!-- ////////////modal de agregar HOBBIE//////////////// -->
+
+  <div class="modal fade" id="modalAddHobbie" tabindex="-1" aria-labelledby="modalAddHobbieLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Pasatiempo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Nombre Pasatiempo:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="name" name="name" />
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Foto (url):</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="urlFoto" name="urlFoto"/>
+                </div>
+            
+          </form> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDBHobbie()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>

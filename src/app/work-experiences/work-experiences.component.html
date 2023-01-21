@@ -1,0 +1,153 @@
+<br><br>
+<div class="container py-1" id="pestania">
+  <div class="row align-items-center">
+    <div class="col-lg-3 text-lg-center col-sm-12 text-sm-center">
+      <h5></h5>
+      <h5>Experiencias Laborales </h5> 
+    </div>
+    <div class="col-lg-9 text-lg-start col-sm-12 text-sm-center" *ngIf="conectado()">
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalWord" role="button" data-bs-toggle="modal" data-bs-target="#modalWord" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/add.svg" alt="iconsPencel" href="#modalAdd" role="button" data-bs-toggle="modal" data-bs-target="#modalAdd" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" href="#modalDelete" role="button" data-bs-toggle="modal" data-bs-target="#modalDelete" />
+      </button>
+    </div> 
+  </div> 
+</div>
+
+<div class="container" id="contenedorIndividual">
+    <div class="row align-items-center py-3" *ngFor="let word of wordExperience">
+      <div class="col-3 text-center">
+        <img class="imagenWorkEducation" src="{{word.url_photo_business}}" alt="Imagen-empresa" />
+      </div>
+      <div class="col-8">
+        <h5> {{ word.name_business }} </h5>
+        <h6> {{ word.job }} </h6>
+        <h6> {{ word.duration }} </h6>
+        <span> {{ word.chores }} </span> 
+      </div>
+    </div>
+  </div>
+
+  <!-- //////////// modal eliminar //////////////// -->
+
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar Experiencia Laboral</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+          <form>
+            <div class="mb-3 align-items-center" *ngFor="let wordDelete of wordExperience">
+              <label for="recipient-name" class="col-form-label">Nombre de la Empresa:</label><br>
+              <strong>{{wordDelete.name_business}}</strong><br>
+              <label for="recipient-name" class="col-form-label">id: {{wordDelete.id_word}}
+                <button class="btn btn-light" *ngIf="conectado" style="color: brown;" (click)="deleteDB(wordDelete.id_word)">
+                  <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" />Eliminar
+                </button><br><br>
+              </label>
+              <div class="modal-footer">
+              </div>   
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /////////////modal editar/////////////// -->
+
+<div class="modal" id="modalWord" aria-hidden="true" aria-labelledby="modalWordLabel" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Experiencia Laboral</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <div  *ngFor="let wordEE of wordExperience">
+            <div class="mb-3">
+              <h5>Empresa id: {{wordEE.id_word}}</h5>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Nombre de la Empresa:</label>
+              <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="wordEE.name_business" />
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Cargo:</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="wordEE.job" />
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Actividades o Roles:</label>
+              <textarea class="form-control" id="message-text" [(ngModel)]="wordEE.chores"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Duración:</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="wordEE.duration" />
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Logo de la Empresa -url-:</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="wordEE.url_photo_business" />
+            </div> 
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDB()">Guardar Cambios</button>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  <!-- ////////////modal de agregar experiencia new//////////////// -->
+
+<div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header"> 
+          <h5 class="modal-title">Agregar Experiencia Laboral</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Nombre de la Empresa:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="name" name="name" />
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Cargo:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="job" name="job"/>
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Actividades o Roles:</label>
+                <textarea class="form-control" id="message-text" [(ngModel)]="chores" name="chores"></textarea>
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Duración:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="duration" name="duration" />
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Logo de la Empresa (url):</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="url_logo" name="url_logo" />
+                </div>
+            
+          </form> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDB()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>

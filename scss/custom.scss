@@ -1,0 +1,151 @@
+:root{
+  --esquinasImagenes: .5em;
+  --tamanoIconos: 1.5em;
+  --colorFondo:  #f3f3e4;
+  --fontTitle:  #474742;
+  --fontParrafos:  #62625c;
+  --fondoLogin: #1f1f1f;
+  --fondoPestania: rgba(104, 99, 99, 0.081);
+}
+//primarios
+$primary: #7066e0;  // #474742;
+$secondary:  #474742;
+$success: #f3f3e4;
+$thumbnail-border-radius: 1.5em;
+//links
+$link-color: #474742;
+$link-hover-color: #5b5b33;
+
+//////////// animacion habiliadades ////
+
+#circle {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50px;
+  height: 50px;	
+}
+
+.loader {
+  width: calc(100% - 0px);
+  height: calc(100% - 0px);
+  border: 1px solid rgba(254, 254, 254, 0.212);
+  border-top: 4px solid var(--fondoLogin);
+  border-radius: 50%;
+  animation: rotate 100s linear infinite;
+}
+.loader:hover{
+  border-top: 4px #9b5858;
+  border-style:groove;
+}
+
+@keyframes rotate {
+100% {transform: rotate(360deg);}
+} 
+
+///////////////////////////
+/// 
+h6, span, p{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--fontParrafos);
+}
+
+h2, h3, h5{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: var(--fontTitle);
+}
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 360px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+.fondo {
+  background: var(--colorFondo);
+}
+
+#pestania{
+  background-color: var(--fondoPestania);
+  border-top-left-radius: var(--esquinasImagenes);
+  border-top-right-radius: var(--esquinasImagenes);
+}
+#contenedorIndividual{
+  border-style: double;
+  border-color: var(--fondoPestania);
+}
+#cardHabilidad{
+  background-color: var(--fondoPestania);
+  border-style: none;
+}
+// #colorBotonesLogin button{
+//   color: var(--colorFondo);
+//   border-color: var(--colorFondo);
+// }
+// #colorBotonesLogin button:hover{
+//   color: var(--fondoLogin);
+//   border-color: var(--colorFondo);
+//   background-color: var(--colorFondo);
+// }
+
+
+
+
+
+#fotoPerfil img{
+  border-radius: 150em;
+  margin-top: -4em;
+  width: 80%;
+  border-color: var(--colorFondo);
+  border-style: solid;
+  border-width: 15px;
+}
+
+#fotoHobbies img{
+  border-radius: 150em;
+  width: 90%;
+}
+
+.imagenWorkEducation{
+  width: 90%;
+  border-radius: var(--esquinasImagenes);
+}
+
+.imagenArgentinaPrograma{
+  width: 100%;
+  border-radius: var(--esquinasImagenes);
+}
+
+.imagenBanner{
+  width: 100%;
+}
+
+.iconosContactos{
+  width: var(--tamanoIconos);
+}
+
+.col-10 a{
+  text-decoration: none;
+}
+
+#fondoLoginBanner{
+  background-color: var(--fondoLogin);
+}
+
+#iconEditar{
+  width: 2em;
+}
+
+#progressBar{
+  height: 1.3em;
+  background-color: #b8f8b9;
+}
+#progressBarPorcentaje{
+  width: 50%;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";

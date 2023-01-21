@@ -1,0 +1,142 @@
+<br><br>
+<div class="container"  id="pestania">
+  <div class="row align-items-center">
+    <div class="col-lg-3 text-lg-center col-sm-12 text-sm-center">
+      <h5></h5>
+      <h5>Habilidades</h5>
+    </div><br>
+    <div class="col-lg-9 text-lg-start col-sm-12 text-sm-center" *ngIf="conectado()">
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalSkill" role="button" data-bs-toggle="modal" data-bs-target="#modalSkill" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/add.svg" alt="iconsPencel" href="#modalAddSkill" role="button" data-bs-toggle="modal" data-bs-target="#modalAddSkill" />
+      </button>
+      <button class="btn">
+        <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" href="#modalDeleteSkill" role="button" data-bs-toggle="modal" data-bs-target="#modalDeleteSkill" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="contenedorIndividual">
+  <div class="container py-3">
+    <div class="row">
+      <div class="col-lg-3 text-center col-sm-6 py-4" *ngFor="let skill of skills">
+        
+        <div class="card" id="cardHabilidad"><br><br>
+          <div id="circle">
+            <div class="loader">
+              <div class="loader">
+                  <div class="loader">
+                     <div class="loader">
+                      O
+                     </div>
+                   </div>
+                  </div>
+              </div> 
+            </div>
+          <h5> {{skill.name_skill}} </h5> 
+          <h6> {{ skill.percentage_skill}}% </h6>
+        </div>
+  
+      </div> 
+    </div>
+  </div>
+</div>
+
+
+ <!-- //////////// modal eliminar //////////////// -->
+
+ <div class="modal fade" id="modalDeleteSkill" tabindex="-1" aria-labelledby="modalDeleteSkillLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Habilidad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3 align-items-center" *ngFor="let skillDelete of skills">
+            <label for="recipient-name" class="col-form-label">Habilidad:</label><br>
+            <strong>{{skillDelete.name_skill}}</strong><br>
+            <label for="recipient-name" class="col-form-label">id: {{skillDelete.id_skill}}
+              <button class="btn btn-light" style="color: brown;" (click)="deleteDBSkill(skillDelete.id_skill)">
+                <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" />Eliminar
+              </button><br><br>
+            </label>
+            <div class="modal-footer">
+            </div>   
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- /////////////modal editar/////////////// -->
+
+ <div class="modal" id="modalSkill" aria-hidden="true" aria-labelledby="modalSkillLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Habilidades</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div  *ngFor="let skillEdit of skills">
+          <div class="mb-3">
+            <h5>Habilidad id: {{skillEdit.id_skill}}</h5>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nombre del Lenguaje o Herrmienta:</label>
+            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="skillEdit.name_skill" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Habilidad en % (1-100):</label>
+            <input type="number" class="form-control" id="recipient-name" [(ngModel)]="skillEdit.percentage_skill" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBSkill()">Guardar Cambios</button>
+      </div>
+    </div>  
+  </div>
+</div>
+
+  <!-- ////////////modal de agregar experiencia new//////////////// -->
+
+  <div class="modal fade" id="modalAddSkill" tabindex="-1" aria-labelledby="modalAddSkillLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Habilidad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Nombre del Lenguaje o Herramienta:</label>
+                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="habilidad" name="habilidad" />
+                </div>
+                <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Habilidad en % (1-100):</label>
+                <input type="number" class="form-control" id="recipient-name" [(ngModel)]="porcentaje" name="porcentaje"/>
+                </div>
+            
+          </form> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDBSkill()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>

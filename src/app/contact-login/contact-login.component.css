@@ -1,0 +1,10 @@
+
+:root {
+  --radio-esquinas-boton: 3%;
+}
+
+
+.imagen-logo-argentina-programa{
+  width: 10%;
+  border-radius: var(--radio-esquinas-boton);
+}

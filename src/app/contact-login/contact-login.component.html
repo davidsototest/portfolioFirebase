@@ -1,0 +1,143 @@
+<!-- firebase deploy --only hosting:frontendportfolio-e949c -->
+
+<div class="container-fluid py-2" id="fondoLoginBanner">
+  <div class="row align-items-end">
+    <div class="col-lg-2 col-sm-4"> 
+      <img class="imagenArgentinaPrograma" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/AssetsPortfolioDS%2FLogoArgentinaProg1.webp?alt=media&token=0cf9e5c7-c590-47e0-abee-1e2837b8efe3" alt="logoArgentinaPrograma"> 
+      <!-- link de imagen de argprog llega vacia. -->
+    </div>
+
+      <div class="col-lg-3 text-end offset-lg-7 col-sm-8">     
+
+        <button class="btn" *ngIf="conectado()">
+          <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalEdit" role="button" data-bs-toggle="modal" data-bs-target="#modalEdit" />
+        </button>
+        <div class="btn-group" role="group" aria-label="Basic outlined example" id="colorBotonesLogin">
+          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalContactos">Contactos</button>
+          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalLogin" *ngIf="!conectado()">Connect</button>
+          <button type="button" *ngIf="conectado()" class="btn btn-outline-success"  (click)="signOut()">SignOut</button>
+        </div> 
+                   
+      </div>
+  </div>
+</div>
+
+<!-- Model Login -->
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" [(ngModel)]="form.email">
+          <label for="emailInput">Usuario</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="passwordInput" placeholder="Password" [(ngModel)]="form.password">
+          <label for="passwordInput">Contraseña</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="loginFirebase()">Iniciar Sesión</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- //Modal Contactos// -->
+<div class="modal fade" id="modalContactos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Contactos</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngFor="let contact of contacts">
+
+        <div class="row py-2">
+          <div class="col-2 text-center" >
+            <img class="iconosContactos" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/IconsRedesSociales%2Fgmail.svg?alt=media&token=58b472f7-f2a0-4457-8688-749c9fdea314" alt="iconogmail">
+          </div>
+          <div class="col-10">
+            <a href="{{ contact.email_contact }}" target="_blank"> {{ contact.email_contact }}  </a>
+          </div>
+        </div>
+        
+        <div class="row py-2">
+          <div class="col-2 text-center" >
+            <img class="iconosContactos" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/IconsRedesSociales%2Flinkedin.svg?alt=media&token=46513152-c77b-48a9-8675-badd6f31f6a8" alt="iconoLinkedin">
+          </div>
+          <div class="col-10">
+            <a href="{{ contact.linkedin_contact }}" target="_blank"> {{ contact.linkedin_contact }} </a>
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-2 text-center" >
+            <img class="iconosContactos" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/IconsRedesSociales%2Finstagram.svg?alt=media&token=a696dab6-75ee-4ebe-bcae-b7d0f1e51011" alt="iconoInstagram">
+          </div>
+          <div class="col-10">
+            <a href="{{ contact.instagram_contact }}" target="_blank"> {{ contact.instagram_contact }}  </a>
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-2 text-center" >
+            <img class="iconosContactos" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/IconsRedesSociales%2Fdiscord.svg?alt=media&token=c6355755-470f-4d0f-bad6-f11749262619" alt="iconoDiscord">
+          </div>
+          <div class="col-10">
+            <a href="{{ contact.discord_contact }}" target="_blank"> {{ contact.discord_contact }} </a>
+          </div>
+        </div><br>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /////////////modal editar CONTACTOS/////////////// -->
+
+<div class="modal" id="modalEdit" aria-hidden="true" aria-labelledby="modalEditLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content" *ngFor="let contac of contacts">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Contactos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+        
+        <div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Correo Electronico:</label>
+            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="contac.email_contact" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Linkedin:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="contac.linkedin_contact" />
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Instagram:</label>
+            <input class="form-control" id="message-text" [(ngModel)]="contac.instagram_contact" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Discord:</label>
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="contac.discord_contact" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBContact(contac)">Guardar Cambios</button>
+      </div>
+    </div>  
+  </div>
+</div>
+
