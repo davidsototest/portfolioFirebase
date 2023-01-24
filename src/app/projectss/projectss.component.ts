@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { urlImgProjects } from '../link-images/link-images';
-import { ProjectModel } from '../Models/ProjectModel';
-import { Projects } from '../projectss';
+import ProjectModel from '../Models/ProjectModel';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
 import { AlertasService } from '../services-generals/alertas.service';
 import { LoginServiceService } from '../services-generals/login-service.service';
@@ -14,7 +13,8 @@ import { ServiceBackEndService } from '../services-generals/service-back-end.ser
   styleUrls: ['./projectss.component.css']
 })
 export class ProjectssComponent implements OnInit {
-  projects: any[];
+  projects: ProjectModel[];
+  newProject: FormGroup;
 
   name:string;
   descripProject:string;
@@ -30,43 +30,32 @@ export class ProjectssComponent implements OnInit {
     private serviceBackend:ServiceBackEndService,
     private actualizarDBservice: ActualizarDBService,
     private alerta:AlertasService) {
-    this.serviceBackend.getProject().subscribe(resp=>{
-      this.projects = resp;
-    });
+
+      this.newProject = new FormGroup({
+        name_project: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        description_project: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        url_photo_project: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        url_project: new FormControl('', [Validators.required, Validators.minLength(2)])
+      })
    }
 
-   addDBProject(){
-    let projectAdd = new ProjectModel(this.name, this.descripProject, this.urlFotoProject, this.urlProject); 
-    this.actualizarDBservice.addProject(projectAdd);
-    this.alerta.alertaAdd(projectAdd.name_project);
-    
-    this.serviceBackend.getProject().subscribe(resp=>{
-      this.projects = resp;
-  
-      this.name = "";
-      this.descripProject = "";
-      this.urlFotoProject = "";
-      this.urlProject = "";
-    });
+   async addProject(){
+    await this.actualizarDBservice.addProject(this.newProject.value);
+    this.newProject.reset();
    }
 
-   actualizarDBProject(){
-    for (let i = 0; i <= this.projects.length; i++ ){
-      if(this.projects[i] != null){
-        this.actualizarDBservice.postProject(this.projects[i]);
-      } else{
-        console.log("el indice del array: " + i + " esta vacio");
-      }
-    }
-    this.alerta.alertaUpdate("Proyecto");
+   async updateProject(){
+    await this.actualizarDBservice.updateProject(this.projects);
    }
 
-   deleteDBProject(id:number){
-    this.actualizarDBservice.deleteProject(id);
-    this.alerta.alertaDelete("Proyecto");
+   async deleteProject(project: ProjectModel){
+    await this.actualizarDBservice.deleteProject(project);    
    }
 
   ngOnInit(): void {
+    this.actualizarDBservice.getProject().subscribe(resp =>{
+      this.projects = resp;
+     }) 
   }
 
 }

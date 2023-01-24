@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { WordModel } from '../Models/Word';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import WordModel from '../Models/Word';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
 import { AlertasService } from '../services-generals/alertas.service';
 import { LoginServiceService } from '../services-generals/login-service.service';
-import { ServiceBackEndService } from '../services-generals/service-back-end.service';
+
 
 @Component({
   selector: 'app-work-experiences',
@@ -11,66 +12,45 @@ import { ServiceBackEndService } from '../services-generals/service-back-end.ser
   styleUrls: ['./work-experiences.component.css'] 
 })
 export class WorkExperiencesComponent implements OnInit {
-  wordExperience: any[];
- // wordAdd:WordModel;
-  wordE: any;
-
-  name:string;
-  job:string;
-  chores:string;
-  duration:string;
-  url_logo:string;  
+  wordExperience: WordModel[];
+  newWord: FormGroup; 
 
 constructor(
-  private loginService:LoginServiceService, 
-  private serviceBackend:ServiceBackEndService,
+  private loginService:LoginServiceService,
   private actualizarDBservice: ActualizarDBService,
   private alerta:AlertasService) {
 
-  this.serviceBackend.getWord().subscribe(resp=>{
-    this.wordExperience = resp; 
-    console.log (resp);  
-     
-    
-  });
+    this.newWord = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      job: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      chores: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      duration: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      url_logo: new FormControl('', [Validators.required, Validators.minLength(2)])
+    })
  }
 
  conectado(){
   return this.loginService.estaLogueado();
  }
 
- actualizarDB(){
-  for (let i = 0; i <= this.wordExperience.length; i++ ){
-    if(this.wordExperience[i] != null){
-      this.actualizarDBservice.postWord(this.wordExperience[i]);
-    } else{
-      console.log("el indice del array: " + i + " esta vacio");
-    }
-  }
-  this.alerta.alertaUpdate("Experiencia Laboral");
+ async updateWordd(){
+    await this.actualizarDBservice.updateWord(this.wordExperience);
  }
 
- addDB(){
-  let wordAdd = new WordModel(this.name, this.job, this.chores, this.duration, this.url_logo); 
-  this.actualizarDBservice.addWord(wordAdd);
-  this.alerta.alertaAdd(wordAdd.name_business);
-    this.serviceBackend.getWord().subscribe(resp=>{
-    this.wordExperience = resp;
-    this.name = "";
-    this.job = "";
-    this.chores = "";
-    this.duration = "";
-    this.url_logo = ""; 
-  });
+ async addDB(){  
+  const response = await this.actualizarDBservice.addWord(this.newWord.value); 
+  this.newWord.reset();
  }
  
- deleteDB(id:number){
-  this.actualizarDBservice.deleteWord(id);
-  this.alerta.alertaDelete("Experiencia Laboral")
+ async deleteDB(word: WordModel){
+  const response = await this.actualizarDBservice.deleteWord(word);
+  console.log(response);
  }
  
   ngOnInit(): void {
-   
+   this.actualizarDBservice.getWord().subscribe(resp =>{
+    this.wordExperience = resp;
+   }) 
   }
 
 }

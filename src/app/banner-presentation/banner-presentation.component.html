@@ -1,33 +1,40 @@
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12" id="fondoLoginBanner">
-      <img class="imagenBanner" src="{{ bannerPresentation.url_banner }}" alt="Imagen-banner">
-    </div>
-  </div> 
-</div> 
+<div *ngFor="let banner of bannerPresentation">
 
-<div class="container" >
-  <div class="row align-items-center">
-    <div class="col-lg-3 offset-lg-0 col-sm-6 offset-sm-3 text-sm-center" id="fotoPerfil" >
-      <img class="" src="{{ bannerPresentation.url_photo }}" alt="fotoPerfil"><br>
-      <h2> {{ bannerPresentation.name }} </h2>
-      <h6> {{ bannerPresentation.location }} </h6>
-    </div>
-    
-    <div class="col-lg-8 text-lg-start col-sm-12 text-sm-center">
-      <div class="row">
-        <div class="col"><br>
-          <h3> {{ bannerPresentation.title }} <button *ngIf="conectado()" class="btn">
-            <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" data-bs-toggle="modal" data-bs-target="#modalPresentation">
-          </button></h3>
-          <br>
-          <span> {{ bannerPresentation.presentation }} </span>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12" id="fondoLoginBanner">
+        <img class="imagenBanner" src="{{ banner.url_banner }}" alt="Imagen-banner">
+      </div>
+    </div> 
+  </div> 
+   
+  <div class="container" >
+    <div class="row align-items-center">
+      <div class="col-lg-3 offset-lg-0 col-sm-6 offset-sm-3 text-sm-center" id="fotoPerfil" >
+        <img class="" src="{{ banner.url_fotoPerfil }}" alt="fotoPerfil"><br>
+        <h2> {{ banner.nombre_completo }}</h2>
+        <h6> {{ banner.localidad }} </h6>
+      </div> 
+      
+      <div class="col-lg-8 text-lg-start col-sm-12 text-sm-center">
+        <div class="row">
+          <div class="col"><br>
+            <h3> {{ banner.nombre_perfil }} <button *ngIf="conectado()" class="btn">
+              <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" data-bs-toggle="modal" data-bs-target="#modalPresentation">
+            </button></h3>
+            <br>
+            <span> texto:  {{ banner.descripcion }} </span>
+          </div>
         </div>
       </div>
-    </div>
-  </div> 
+    </div> 
+  </div>
+
 </div>
+
+
+
 <!-- //////////////////////////////modal editar //////////////////////// -->
 <div class="modal" tabindex="-1" id="modalPresentation">
   <div class="modal-dialog">
@@ -36,40 +43,40 @@
         <h5 class="modal-title">Editar Presentación</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" *ngFor="let bannerPresentation2 of bannerPresentation">
         
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Nombre Completo:</label>
-            <input type="text"  class="form-control" [(ngModel)]="bannerPresentation.name" required>
+            <input type="text"  class="form-control" [(ngModel)]="bannerPresentation2.nombre_completo" required>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Nombre Perfil:</label>
-            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation.title">
+            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation2.nombre_perfil">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Localidad:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation.location">
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation2.localidad">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción:</label>
-            <textarea class="form-control" id="message-text" [(ngModel)]="bannerPresentation.presentation"></textarea>
+            <textarea class="form-control" id="message-text" [(ngModel)]="bannerPresentation2.descripcion"></textarea>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Url Foto Perfil:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation.url_photo">
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation2.url_fotoPerfil">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Url Foto Banner (2100x550px):</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation.url_banner">
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation2.url_banner">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Url Logo Argentina Programa:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation.url_photo_argProg">
+            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="bannerPresentation2.url_argProg">
           </div>
         
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary" (click)="guardarBanner()" data-bs-dismiss="modal">Guardar Cambios</button>
+        <button type="submit" class="btn btn-primary" (click)="updateBanner()" data-bs-dismiss="modal">Guardar Cambios</button>
       </div>
     </div>
   </div>

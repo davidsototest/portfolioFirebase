@@ -2,7 +2,7 @@
 
 <div class="container"  id="pestania">
   <div class="row">
-    <div class="col text-center">
+    <div class="col text-center"> 
       <h5></h5>
       <h5>Pasatiempo</h5>
     </div>
@@ -46,8 +46,8 @@
           <div class="mb-3 align-items-center" *ngFor="let hobbiesDelete of hobbies">
             <label for="recipient-name" class="col-form-label">Nombre del Pasatiempo:</label><br>
             <strong>{{hobbiesDelete.name_hobbies}}</strong><br>
-            <label for="recipient-name" class="col-form-label">id: {{hobbiesDelete.id_hobbies}}
-              <button class="btn btn-light" style="color: brown;" (click)="deleteDBHobbie(hobbiesDelete.id_hobbies)">
+            <label for="recipient-name" class="col-form-label">id: {{hobbiesDelete.id}}
+              <button class="btn btn-light" style="color: brown;" (click)="deleteHobbie(hobbiesDelete)">
                 <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" />Eliminar
               </button><br><br>
             </label>
@@ -76,7 +76,7 @@
         
         <div  *ngFor="let HobbieEdit of hobbies">
           <div class="mb-3">
-            <h5>Pasatiempo id: {{HobbieEdit.id_hobbies}}</h5>
+            <h5>Pasatiempo id: {{HobbieEdit.id}}</h5>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Nombre del Pasatiempo:</label>
@@ -90,7 +90,7 @@
       </div>
       
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBHobbies()">Guardar Cambios</button>
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="updateHobbie()">Guardar Cambios</button>
       </div>
     </div>  
   </div>
@@ -107,22 +107,22 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form novalidate (ngSubmit)="addHobbie()" [formGroup]="newHobbie">
             
                 <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Nombre Pasatiempo:</label>
-                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="name" name="name" />
+                <input type="text" class="form-control" id="recipient-name" formControlName="name_hobbies" placeholder="Leer Libros" />
                 </div>
                 <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Foto (url):</label>
-                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="urlFoto" name="urlFoto"/>
+                <input type="text" class="form-control" id="recipient-name" formControlName="url_photo_hobbies" placeholder="Url de Firebase"/>
                 </div>
             
           </form> 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDBHobbie()">Guardar Cambios</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="newHobbie.invalid" (click)="addHobbie()">Guardar Cambios</button>
         </div>
       </div>
     </div>

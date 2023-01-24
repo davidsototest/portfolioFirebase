@@ -25,9 +25,11 @@
             "styles": [
               "./scss/custom.css"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.slim.min.js",
-                        "node_modules/popper.js/dist/umd/popper.min.js",
-                        "node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "scripts": [
+              "node_modules/jquery/dist/jquery.slim.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -95,6 +97,16 @@
               "src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "portfolio-FrontEnd:build:production",
+            "firebaseProject": "portfolio-ds2023",
+            "firebaseHostingSite": "portfolio-ds2023"
           }
         }
       }

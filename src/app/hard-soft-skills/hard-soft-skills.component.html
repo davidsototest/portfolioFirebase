@@ -60,8 +60,8 @@
           <div class="mb-3 align-items-center" *ngFor="let skillDelete of skills">
             <label for="recipient-name" class="col-form-label">Habilidad:</label><br>
             <strong>{{skillDelete.name_skill}}</strong><br>
-            <label for="recipient-name" class="col-form-label">id: {{skillDelete.id_skill}}
-              <button class="btn btn-light" style="color: brown;" (click)="deleteDBSkill(skillDelete.id_skill)">
+            <label for="recipient-name" class="col-form-label">id: {{skillDelete.id}}
+              <button class="btn btn-light" style="color: brown;" (click)="deleteSkill(skillDelete)">
                 <img id="iconEditar" src="../../assets/icons-svg/delete.svg" alt="iconsPencel" />Eliminar
               </button><br><br>
             </label>
@@ -90,7 +90,7 @@
         
         <div  *ngFor="let skillEdit of skills">
           <div class="mb-3">
-            <h5>Habilidad id: {{skillEdit.id_skill}}</h5>
+            <h5>Habilidad id: {{skillEdit.id}}</h5>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Nombre del Lenguaje o Herrmienta:</label>
@@ -104,7 +104,7 @@
       </div>
       
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBSkill()">Guardar Cambios</button>
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="updateSkill()">Guardar Cambios</button>
       </div>
     </div>  
   </div>
@@ -120,22 +120,22 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form novalidate (ngSubmit)="addSkill()" [formGroup]="newSkill">
             
                 <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Nombre del Lenguaje o Herramienta:</label>
-                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="habilidad" name="habilidad" />
+                <input type="text" class="form-control" id="recipient-name" formControlName="name_skill" placeholder="Angular" />
                 </div>
                 <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Habilidad en % (1-100):</label>
-                <input type="number" class="form-control" id="recipient-name" [(ngModel)]="porcentaje" name="porcentaje"/>
+                <input type="number" class="form-control" id="recipient-name" formControlName="percentage_skill"/>
                 </div>
             
           </form> 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDBSkill()">Guardar Cambios</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="newSkill.invalid" (click)="addSkill()">Guardar Cambios</button>
         </div>
       </div>
     </div>

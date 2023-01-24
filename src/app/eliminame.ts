@@ -1,4 +1,4 @@
-export class Contact{
+export class ContactossssELIMINAME{
   name_contact: string="";
   url_contact:string="";
   url_icono_contact:string="";

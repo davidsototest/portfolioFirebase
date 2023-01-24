@@ -7,7 +7,7 @@
       <!-- link de imagen de argprog llega vacia. -->
     </div>
 
-      <div class="col-lg-3 text-end offset-lg-7 col-sm-8">     
+      <div class="col-lg-3 text-end offset-lg-7 col-sm-8">      
 
         <button class="btn" *ngIf="conectado()">
           <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalEdit" role="button" data-bs-toggle="modal" data-bs-target="#modalEdit" />
@@ -63,7 +63,7 @@
             <img class="iconosContactos" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/IconsRedesSociales%2Fgmail.svg?alt=media&token=58b472f7-f2a0-4457-8688-749c9fdea314" alt="iconogmail">
           </div>
           <div class="col-10">
-            <a href="{{ contact.email_contact }}" target="_blank"> {{ contact.email_contact }}  </a>
+            <a href=" {{ contact.email_contact }} " target="_blank"> {{ contact.email_contact }}  </a>
           </div>
         </div>
         
@@ -135,7 +135,7 @@
       </div>
       
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="actualizarDBContact(contac)">Guardar Cambios</button>
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="updateContact()">Guardar Cambios</button>
       </div>
     </div>  
   </div>

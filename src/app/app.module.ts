@@ -8,7 +8,7 @@ import { EducationComponent } from './education/education.component';
 import { HardSoftSkillsComponent } from './hard-soft-skills/hard-soft-skills.component';
 import { HobbiesComponent } from './hobbies/hobbies.component';
 import { FooterComponent } from './footer/footer.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectssComponent } from './projectss/projectss.component';
 import { BannerPresentationUpdateComponent } from './banner-presentation-update/banner-presentation-update.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,6 +16,7 @@ import { WorkExperiencesComponent } from './work-experiences/work-experiences.co
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -30,13 +31,16 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
     ContactLoginComponent,
     BannerPresentationUpdateComponent,
     WorkExperiencesComponent
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
   providers: [],
   bootstrap: [AppComponent]

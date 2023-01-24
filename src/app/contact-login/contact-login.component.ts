@@ -6,6 +6,7 @@ import { Auth, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthFirebaseService } from '../services-generals/auth-firebase.service';
 import Swal from 'sweetalert2';
 import { AlertasService } from '../services-generals/alertas.service';
+import Contact from '../Models/contacts';
 // import { AuthFirebaseService } from '../services-generals/auth-firebase.service';
 
 @Component({
@@ -14,7 +15,8 @@ import { AlertasService } from '../services-generals/alertas.service';
   styleUrls: ['./contact-login.component.css'] 
 })
 export class ContactLoginComponent implements OnInit {
-  contacts: any;
+  contacts: Contact[];
+
   credenciales:any;
   form:any = {
     email: "",
@@ -28,38 +30,38 @@ export class ContactLoginComponent implements OnInit {
     private auth:AuthFirebaseService,
     private alerta:AlertasService
     ) {
-    this.serviceBackend.getContact().subscribe(resp=>{
-      this.contacts = resp;
-      console.log (this.contacts);
-    });
+    // this.serviceBackend.getContact().subscribe(resp=>{
+    //   this.contacts = resp;
+    //   console.log (this.contacts);
+    // });
    } 
 
   // Inicio de sesion
   loginFirebase(){
 
-    if(this.form.email.length > 8 && this.form.password.length >= 6){
-      this.loginService.loginFirebaseService(this.form.email, this.form.password);
+    // if(this.form.email.length > 8 && this.form.password.length >= 6){
+    //   this.loginService.loginFirebaseService(this.form.email, this.form.password);
 
-    } else if (this.form.email.length <= 8){
-      this.alerta.alertaEmail();
+    // } else if (this.form.email.length <= 8){
+    //   this.alerta.alertaEmail();
 
-    } else if (this.form.password.length < 6) {
-     this.alerta.alertaContrasena();
-    } 
+    // } else if (this.form.password.length < 6) {
+    //  this.alerta.alertaContrasena();
+    // } 
   }
     
   
 
-  //estado de los botones 
+  //estado de los botones  
   conectado(){
     return this.loginService.estaLogueado();
    }
 
   // cerrar de sesion
   signOut(){
-    this.auth.cerrarSesion();
-    this.loginService.retorno = false;
-    window.location.reload();
+    // this.auth.cerrarSesion();
+    // this.loginService.retorno = false;
+    // window.location.reload();
   }
 
 
@@ -69,13 +71,15 @@ export class ContactLoginComponent implements OnInit {
   //   // return this.loginService.retorno;
   // }
 
-  actualizarDBContact(contac:any){
-    this.actualizarDBservice.postContact(contac);
-    this.alerta.alertaUpdate("Contactos");   
+  updateContact(){
+    this.actualizarDBservice.updateContacts(this.contacts);  
   }
 
 
   ngOnInit(): void {
+    this.actualizarDBservice.getContacts().subscribe(resp =>{
+      this.contacts = resp;
+     })
   }
 
 }

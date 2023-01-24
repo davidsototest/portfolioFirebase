@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { EducationModel } from '../Models/Education';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import EducationModel from '../Models/Education';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
 import { AlertasService } from '../services-generals/alertas.service';
 import { LoginServiceService } from '../services-generals/login-service.service';
-import { ServiceBackEndService } from '../services-generals/service-back-end.service';
 
 @Component({
   selector: 'app-education',
@@ -11,61 +11,45 @@ import { ServiceBackEndService } from '../services-generals/service-back-end.ser
   styleUrls: ['./education.component.css']
 })
 export class EducationComponent implements OnInit {
-  educations: any[];
+  educations: EducationModel[];
+  newEducation: FormGroup;
 
-  name:string;
-  nivel:string;
-  duration:string;
-  academia:string;
-  url_logo:string;
-  
   conectado(){
     return this.loginService.estaLogueado();
    }
 
     constructor(
-      private loginService:LoginServiceService, 
-      private serviceBackend:ServiceBackEndService,
+      private loginService:LoginServiceService,
       private actualizarDBservice: ActualizarDBService,
       private alerta:AlertasService) { 
-      this.serviceBackend.getEducation().subscribe(resp=>{ 
-        this.educations = resp;
-      });
+
+        this.newEducation = new FormGroup({
+          name_education: new FormControl('', [Validators.required, Validators.minLength(2)]),
+          level_education: new FormControl('', [Validators.required, Validators.minLength(2)]),
+          duration_education: new FormControl('', [Validators.required, Validators.minLength(2)]),
+          place_education: new FormControl('', [Validators.required, Validators.minLength(2)]),
+          url_photo_education: new FormControl('', [Validators.required, Validators.minLength(2)])
+        })
     }
 
-    addEdu(){
-      let eduAdd = new EducationModel(this.name, this.nivel, this.duration, this.academia, this.url_logo);
-      this.actualizarDBservice.addEdu(eduAdd);
-      this.alerta.alertaAdd("Educación")
-
-      this.serviceBackend.getEducation().subscribe(resp=>{ 
-        this.educations = resp;
-        this.name = "";
-        this.nivel = "";
-        this.duration = "";
-        this.academia = "";
-        this.url_logo = "";
-      });
+     async addEdu(){
+      let response = await this.actualizarDBservice.addEducations(this.newEducation.value);
+      this.newEducation.reset();
     }
 
-    actualizarDBEdu(){
-      for (let i = 0; i <= this.educations.length; i++ ){
-        if(this.educations[i] != null){
-          this.actualizarDBservice.postEdu(this.educations[i]);
-        } else{
-          console.log("el indice del array: " + i + " esta vacio");
-        }
-      }
-      this.alerta.alertaUpdate("Educación");
+    updateEdu(){
+      this.actualizarDBservice.updateEducation(this.educations);
     }
 
-    deleteDBEdu(id:number){
-      this.actualizarDBservice.deleteEdu(id);
-      this.alerta.alertaDelete("Educación")
+    async deleteEdu(education: EducationModel){
+      let response = await this.actualizarDBservice.deleteEducation(education);
      }
 
 
   ngOnInit(): void {
+    this.actualizarDBservice.getEducation().subscribe(resp =>{
+    this.educations = resp;
+     }) 
   }
 
 }

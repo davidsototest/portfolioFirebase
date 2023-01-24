@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 // https://firebase.google.com/docs/web/setup#available-libraries
 //import { getAuth } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
 import { getAuth, signOut } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 @Injectable({
   providedIn: 'root'
@@ -15,25 +16,27 @@ export class AuthFirebaseService {
     
    }
    firebaseConfig = {
-    apiKey: "AIzaSyBgRx1URJr2M2Y8OKYqULk23x652XBABk4",
-    authDomain: "frontendportfolio-e949c.firebaseapp.com",
-    projectId: "frontendportfolio-e949c",
-    storageBucket: "frontendportfolio-e949c.appspot.com",
-    messagingSenderId: "1081102602924",
-    appId: "1:1081102602924:web:5712fb9935f2f077850509",
-    measurementId: "G-TKCNPJ9KY8" 
+    apiKey: "AIzaSyCU5KLty5iJ6b85OVCGjhiWaFFjy54qzhc",
+    authDomain: "portfolio-ds2023.firebaseapp.com",
+    projectId: "portfolio-ds2023",
+    storageBucket: "portfolio-ds2023.appspot.com",
+    messagingSenderId: "30725051570",
+    appId: "1:30725051570:web:d8e3adbadf1acad8b6a5ab" 
   };
   
   // Initialize Firebase
-  app = initializeApp(this.firebaseConfig);
-  analytics = getAnalytics(this.app);
-  
-  
-  auth = getAuth(this.app);
 
-  cerrarSesion(){
-    return signOut(this.auth);
-  }
+  // app = initializeApp(this.firebaseConfig);
+  // analytics = getAnalytics(this.app);
+  
+  
+  // auth = getAuth(this.app);
+
+  // database = getDatabase(this.app);
+
+  // cerrarSesion(){
+  //   return signOut(this.auth);
+  // }
 }
 
 
