@@ -5,7 +5,6 @@ import { ActualizarDBService } from '../services-generals/actualizar-db.service'
 import { AlertasService } from '../services-generals/alertas.service';
 import { LoginServiceService } from '../services-generals/login-service.service';
 
-
 @Component({
   selector: 'app-work-experiences',
   templateUrl: './work-experiences.component.html',
@@ -25,8 +24,8 @@ constructor(
       job: new FormControl('', [Validators.required, Validators.minLength(2)]),
       chores: new FormControl('', [Validators.required, Validators.minLength(2)]),
       duration: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      url_logo: new FormControl('', [Validators.required, Validators.minLength(2)])
-    })
+      url_logo: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    })    
  }
 
  conectado(){
@@ -34,17 +33,16 @@ constructor(
  }
 
  async updateWordd(){
-    await this.actualizarDBservice.updateWord(this.wordExperience);
+  await this.actualizarDBservice.updateWord(this.wordExperience);
  }
 
- async addDB(){  
-  const response = await this.actualizarDBservice.addWord(this.newWord.value); 
+ async addDB(){ 
+  await this.actualizarDBservice.addWord(this.newWord.value); 
   this.newWord.reset();
  }
  
  async deleteDB(word: WordModel){
-  const response = await this.actualizarDBservice.deleteWord(word);
-  console.log(response);
+  await this.actualizarDBservice.deleteWord(word);
  }
  
   ngOnInit(): void {

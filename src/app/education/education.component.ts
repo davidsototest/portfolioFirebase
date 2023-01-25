@@ -32,19 +32,17 @@ export class EducationComponent implements OnInit {
         })
     }
 
-     async addEdu(){
-      let response = await this.actualizarDBservice.addEducations(this.newEducation.value);
-      this.newEducation.reset();
+    async addEdu(){
+      await this.actualizarDBservice.addEducations(this.newEducation.value);
     }
 
-    updateEdu(){
-      this.actualizarDBservice.updateEducation(this.educations);
+    async updateEdu(){
+      await this.actualizarDBservice.updateEducation(this.educations);
     }
 
     async deleteEdu(education: EducationModel){
-      let response = await this.actualizarDBservice.deleteEducation(education);
+      await this.actualizarDBservice.deleteEducation(education);
      }
-
 
   ngOnInit(): void {
     this.actualizarDBservice.getEducation().subscribe(resp =>{

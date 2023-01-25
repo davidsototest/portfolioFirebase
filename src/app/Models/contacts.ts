@@ -4,4 +4,5 @@ export default interface Contact{
     linkedin_contact:string;
     instagram_contact:string;
     discord_contact:string;
+    logo_argProg:string;
 }

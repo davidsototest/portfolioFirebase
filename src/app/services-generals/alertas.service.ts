@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 export class AlertasService {
 
   // alertas de add delete y update ///////////////
-  alertaAdd(texto:string){
+  alertaAdd(){
     Swal.fire({
-      title: 'Agregado Exitosamente!',
-      text: texto,
+      title: 'Agregado Exitosamente!', 
+      text: "",
       icon: 'success',
       timer: 4000,
       showClass: {
@@ -132,11 +132,11 @@ export class AlertasService {
       });
     }
 
-    alertaInesperada(){
+    alertaInesperada(texto?:any){
       Swal.fire({
         icon: 'question',
         title: 'Ups... Error inesperado!',
-        text: 'Vuelva a intentar mas tarde!',
+        text: 'Vuelva a intentar mas tarde! error: ' + texto,
         showConfirmButton: true,
         confirmButtonText: 'Cerrar',
         showClass: {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { urlImgHobbies } from '../link-images/link-images';
 import HobbieModel from '../Models/HobbieModel';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
@@ -14,12 +13,8 @@ import { ServiceBackEndService } from '../services-generals/service-back-end.ser
   styleUrls: ['./hobbies.component.css']
 })
 export class HobbiesComponent implements OnInit {
-urlImgHobbies:string=urlImgHobbies;
 hobbies: HobbieModel[]; 
 newHobbie: FormGroup;
-
-name:string;
-urlFoto:string;
 
 conectado(){
   return this.loginService.estaLogueado();
@@ -39,16 +34,14 @@ constructor(
 
  async addHobbie(){
   await this.actualizarDBservice.addHobbie(this.newHobbie.value);
-  this.newHobbie.reset();
  }
 
  async updateHobbie(){
-  await this.actualizarDBservice.updateHobbie(this.hobbies);  
+  await this.actualizarDBservice.updateHobbie(this.hobbies);
  }
 
  async deleteHobbie(hobbie: HobbieModel){
-  await this.actualizarDBservice.deleteHobbie(hobbie);
-  
+  await this.actualizarDBservice.deleteHobbie(hobbie); 
  }
 
   ngOnInit(): void {
@@ -56,6 +49,4 @@ constructor(
     this.hobbies = resp;
      }) 
   }
-
-
 } 

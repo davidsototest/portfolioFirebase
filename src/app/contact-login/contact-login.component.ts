@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
 import { LoginServiceService } from '../services-generals/login-service.service';
-import { ServiceBackEndService } from '../services-generals/service-back-end.service';
 import { Auth, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthFirebaseService } from '../services-generals/auth-firebase.service';
-import Swal from 'sweetalert2';
 import { AlertasService } from '../services-generals/alertas.service';
 import Contact from '../Models/contacts';
 // import { AuthFirebaseService } from '../services-generals/auth-firebase.service';
@@ -24,8 +22,7 @@ export class ContactLoginComponent implements OnInit {
   }
   
   constructor(
-    private loginService:LoginServiceService, 
-    private serviceBackend:ServiceBackEndService,
+    private loginService:LoginServiceService,
     private actualizarDBservice: ActualizarDBService,
     private auth:AuthFirebaseService,
     private alerta:AlertasService
@@ -71,15 +68,14 @@ export class ContactLoginComponent implements OnInit {
   //   // return this.loginService.retorno;
   // }
 
-  updateContact(){
-    this.actualizarDBservice.updateContacts(this.contacts);  
+  async updateContact(){
+    await this.actualizarDBservice.updateContacts(this.contacts);
   }
-
 
   ngOnInit(): void {
     this.actualizarDBservice.getContacts().subscribe(resp =>{
       this.contacts = resp;
      })
+     console.log(this.contacts);
   }
-
 }

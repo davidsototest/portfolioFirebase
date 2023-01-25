@@ -10,7 +10,6 @@ import { HobbiesComponent } from './hobbies/hobbies.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectssComponent } from './projectss/projectss.component';
-import { BannerPresentationUpdateComponent } from './banner-presentation-update/banner-presentation-update.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WorkExperiencesComponent } from './work-experiences/work-experiences.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -29,7 +28,6 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     FooterComponent,
     ProjectssComponent,
     ContactLoginComponent,
-    BannerPresentationUpdateComponent,
     WorkExperiencesComponent
     
   ],

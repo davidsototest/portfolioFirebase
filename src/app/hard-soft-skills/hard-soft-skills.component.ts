@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import SkillModel from '../Models/Skill';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
 import { AlertasService } from '../services-generals/alertas.service';
 import { LoginServiceService } from '../services-generals/login-service.service';
 import { ServiceBackEndService } from '../services-generals/service-back-end.service';
-
 
 @Component({
   selector: 'app-hard-soft-skills',
@@ -14,17 +12,12 @@ import { ServiceBackEndService } from '../services-generals/service-back-end.ser
   styleUrls: ['./hard-soft-skills.component.css']
 })
 export class HardSoftSkillsComponent implements OnInit {
-  valor3:number=50;
   skills: SkillModel[]; 
   newSkill: FormGroup;
-
-  habilidad:string;
-  porcentaje:number;
 
   conectado(){
     return this.loginService.estaLogueado();
    }
-
 
 constructor(
   private loginService:LoginServiceService, 
@@ -40,7 +33,6 @@ constructor(
 
  async addSkill(){
   await this.actualizarDBservice.addSkill(this.newSkill.value);
-  this.newSkill.reset();
  }
 
  async updateSkill(){
@@ -56,5 +48,4 @@ constructor(
       this.skills = resp;
      }) 
   }
-
 }

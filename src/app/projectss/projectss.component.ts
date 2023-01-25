@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import ProjectModel from '../Models/ProjectModel';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
 import { AlertasService } from '../services-generals/alertas.service';
@@ -15,11 +14,6 @@ import { ServiceBackEndService } from '../services-generals/service-back-end.ser
 export class ProjectssComponent implements OnInit {
   projects: ProjectModel[];
   newProject: FormGroup;
-
-  name:string;
-  descripProject:string;
-  urlFotoProject:string;
-  urlProject:string;
 
   conectado(){
     return this.loginService.estaLogueado();
@@ -41,7 +35,6 @@ export class ProjectssComponent implements OnInit {
 
    async addProject(){
     await this.actualizarDBservice.addProject(this.newProject.value);
-    this.newProject.reset();
    }
 
    async updateProject(){
@@ -49,7 +42,7 @@ export class ProjectssComponent implements OnInit {
    }
 
    async deleteProject(project: ProjectModel){
-    await this.actualizarDBservice.deleteProject(project);    
+    await this.actualizarDBservice.deleteProject(project);  
    }
 
   ngOnInit(): void {
@@ -57,5 +50,4 @@ export class ProjectssComponent implements OnInit {
       this.projects = resp;
      }) 
   }
-
 }

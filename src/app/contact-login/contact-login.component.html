@@ -2,8 +2,8 @@
 
 <div class="container-fluid py-2" id="fondoLoginBanner">
   <div class="row align-items-end">
-    <div class="col-lg-2 col-sm-4"> 
-      <img class="imagenArgentinaPrograma" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/AssetsPortfolioDS%2FLogoArgentinaProg1.webp?alt=media&token=0cf9e5c7-c590-47e0-abee-1e2837b8efe3" alt="logoArgentinaPrograma"> 
+    <div class="col-lg-2 col-sm-4" *ngFor="let cont of contacts"> 
+      <img class="imagenArgentinaPrograma" src="https://firebasestorage.googleapis.com/v0/b/portfolio-ds2023.appspot.com/o/bannerAssets%2FLogoArgentinaProg1.png?alt=media&token=1ae2a3cd-2985-4f7c-a7f8-2aabfcc3a8d5" alt="logoArgentinaPrograma"> 
       <!-- link de imagen de argprog llega vacia. -->
     </div>
 
@@ -117,11 +117,11 @@
         <div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Correo Electronico:</label>
-            <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="contac.email_contact" />
+            <input type="text"  class="form-control" [(ngModel)]="contac.email_contact" />
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Linkedin:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="contac.linkedin_contact" />
+            <input type="text" class="form-control" [(ngModel)]="contac.linkedin_contact" />
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Instagram:</label>
@@ -129,7 +129,7 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Discord:</label>
-            <input type="text" class="form-control" id="recipient-name" [(ngModel)]="contac.discord_contact" />
+            <input type="text" class="form-control" [(ngModel)]="contac.discord_contact" />
           </div>
         </div>
       </div>
