@@ -45,12 +45,12 @@
   }
 }
 h6, .h6, span, p {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Work Sans", sans-serif;
   color: var(--fontParrafos);
 }
 
 h2, .h2, h3, .h3, h5, .h5 {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Solitreo", cursive;
   color: var(--fontTitle);
 }
 

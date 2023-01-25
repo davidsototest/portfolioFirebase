@@ -34,6 +34,7 @@ constructor(
 
  async addHobbie(){
   await this.actualizarDBservice.addHobbie(this.newHobbie.value);
+  this.newHobbie.reset();
  }
 
  async updateHobbie(){

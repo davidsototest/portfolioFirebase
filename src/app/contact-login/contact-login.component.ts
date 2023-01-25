@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActualizarDBService } from '../services-generals/actualizar-db.service';
 import { LoginServiceService } from '../services-generals/login-service.service';
-import { Auth, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// import { Auth, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthFirebaseService } from '../services-generals/auth-firebase.service';
 import { AlertasService } from '../services-generals/alertas.service';
 import Contact from '../Models/contacts';
@@ -29,22 +29,22 @@ export class ContactLoginComponent implements OnInit {
     ) {
     // this.serviceBackend.getContact().subscribe(resp=>{
     //   this.contacts = resp;
-    //   console.log (this.contacts);
+    //   console.log (this.contacts); 
     // });
    } 
 
   // Inicio de sesion
   loginFirebase(){
 
-    // if(this.form.email.length > 8 && this.form.password.length >= 6){
-    //   this.loginService.loginFirebaseService(this.form.email, this.form.password);
+    if(this.form.email.length > 8 && this.form.password.length >= 6){
+      this.loginService.loginFirebaseService(this.form.email, this.form.password);
 
-    // } else if (this.form.email.length <= 8){
-    //   this.alerta.alertaEmail();
+    } else if (this.form.email.length <= 8){
+      this.alerta.alertaEmail();
 
-    // } else if (this.form.password.length < 6) {
-    //  this.alerta.alertaContrasena();
-    // } 
+    } else if (this.form.password.length < 6) {
+     this.alerta.alertaContrasena();
+    } 
   }
     
   
@@ -56,9 +56,9 @@ export class ContactLoginComponent implements OnInit {
 
   // cerrar de sesion
   signOut(){
-    // this.auth.cerrarSesion();
-    // this.loginService.retorno = false;
-    // window.location.reload();
+    this.auth.cerrarSesion();
+    this.loginService.retorno = false;
+    window.location.reload();
   }
 
 

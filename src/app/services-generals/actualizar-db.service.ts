@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, doc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -16,7 +15,7 @@ import { AlertasService } from './alertas.service';
 })
 export class ActualizarDBService {
 
-  constructor(private http: HttpClient,
+  constructor(
               private firestore:Firestore,
               private alerta:AlertasService) { 
     }

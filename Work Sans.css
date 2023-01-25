@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../fonts/Work Sans/Work-Sans.eot);
+  src: local('Work Sans'), url(../fonts/Work Sans/Work-Sans.eot?#iefix) format('embedded-opentype'), url(../fonts/Work Sans/Work-Sans.ttf) format('truetype'), url(../fonts/Work Sans/Work-Sans.woff2) format('woff2'), url(../fonts/Work Sans/Work-Sans.woff) format('woff'), url(../fonts/Work Sans/Work-Sans.svg#WorkSans) format('svg');
+}
+

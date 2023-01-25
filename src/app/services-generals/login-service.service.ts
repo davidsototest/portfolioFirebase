@@ -19,7 +19,7 @@ export class LoginServiceService {
 
   token: any;
   cookies:any;
-  retorno:boolean = true; 
+  retorno:boolean = false; 
   credenciales:any;
   errorCode:string;
 
@@ -32,28 +32,28 @@ export class LoginServiceService {
 
 
     // Inicio de sesion
-  // loginFirebaseService(email:string, password:string){
-  //       signInWithEmailAndPassword(this.authFirebase1.auth, email, password).then((userCredencial) =>{
-  //         this.credenciales = userCredencial;
-  //         userCredencial.user.getIdToken().then(token=>{
-  //           this.token = token;
-  //         })
-  //           this.retorno = true; 
-  //           this.alerta.alertaInicioSesion(this.credenciales.user.email); 
-  //           })  
+  loginFirebaseService(email:string, password:string){
+        signInWithEmailAndPassword(this.authFirebase1.auth, email, password).then((userCredencial) =>{
+          this.credenciales = userCredencial;
+          userCredencial.user.getIdToken().then(token=>{
+            this.token = token;
+          })
+            this.retorno = true; 
+            this.alerta.alertaInicioSesion(this.credenciales.user.email); 
+            })  
 
-  //           .catch((error) =>{
-  //             console.log(error.code);
-  //            if(error.code == "auth/wrong-password"){
-  //             this.alerta.alertaLoginContrasena();
+            .catch((error) =>{
+              console.log(error.code);
+             if(error.code == "auth/wrong-password"){
+              this.alerta.alertaLoginContrasena();
 
-  //            } else if(error.code == "auth/user-not-found"){
-  //             this.alerta.alertaLoginEmail();
-  //            } else {
-  //             this.alerta.alertaInesperada();
-  //            }
-  //           })
-  //   }
+             } else if(error.code == "auth/user-not-found"){
+              this.alerta.alertaLoginEmail();
+             } else {
+              this.alerta.alertaInesperada();
+             }
+            })
+    }
 
   estaLogueado(){
     return this.retorno;

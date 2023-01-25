@@ -35,6 +35,7 @@ export class ProjectssComponent implements OnInit {
 
    async addProject(){
     await this.actualizarDBservice.addProject(this.newProject.value);
+    this.newProject.reset();
    }
 
    async updateProject(){
