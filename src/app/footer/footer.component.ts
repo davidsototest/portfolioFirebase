@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActualizarDBService } from '../services-generals/actualizar-db.service';
+import { LoginServiceService } from '../services-generals/login-service.service';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-footer:string= "© 2022-2025 David Soto";
-  constructor() { }
+footer: any;
+  constructor(private actualizarDBservice: ActualizarDBService,
+              private loginService: LoginServiceService) { }
 
-  ngOnInit(): void {
+  conectado(){
+    return this.loginService.estaLogueado();
+   }
+
+   async updateFooter(){
+    await this.actualizarDBservice.updateFooter(this.footer);
+   }
+
+  ngOnInit(): void { 
+    this.actualizarDBservice.getFooter().subscribe(resp =>{
+      this.footer = resp;
+     }) 
   }
 
 }

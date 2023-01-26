@@ -323,5 +323,27 @@ export class ActualizarDBService {
         return
       }      
     }
+
+    //Servicios de FOOTER///////////
+    getFooter(): Observable<any[]> {
+      let footerRef = collection(this.firestore, 'footer');
+      return collectionData(footerRef, { idField: 'id' }) as Observable<any[]>;
+    }
+
+    updateFooter(footer: any[]){
+      try {
+        for (let i = 0; i <= footer.length; i ++){
+          let footerUpdateRef = doc(this.firestore, `footer/${footer[i].id}`);
+          updateDoc(footerUpdateRef, footer[i]);
+        }
+        this.alerta.alertaUpdate("Footer");
+      } catch (error) {
+        if(error == "TypeError: Cannot read properties of undefined (reading 'id')"){
+          this.alerta.alertaUpdate("Footer");
+        }else{
+          this.alerta.alertaInesperada(error);
+        }
+      } 
+    }
   }
 

@@ -33,26 +33,18 @@ export class LoginServiceService {
 
     // Inicio de sesion
   loginFirebaseService(email:string, password:string){
-        signInWithEmailAndPassword(this.authFirebase1.auth, email, password).then((userCredencial) =>{
-          this.credenciales = userCredencial;
-          userCredencial.user.getIdToken().then(token=>{
-            this.token = token;
-          })
-            this.retorno = true; 
-            this.alerta.alertaInicioSesion(this.credenciales.user.email); 
-            })  
-
-            .catch((error) =>{
-              console.log(error.code);
-             if(error.code == "auth/wrong-password"){
-              this.alerta.alertaLoginContrasena();
-
-             } else if(error.code == "auth/user-not-found"){
-              this.alerta.alertaLoginEmail();
-             } else {
-              this.alerta.alertaInesperada();
-             }
+        try {
+          signInWithEmailAndPassword(this.authFirebase1.auth, email, password).then((userCredencial) =>{
+            this.credenciales = userCredencial;
+            userCredencial.user.getIdToken().then(token=>{
+              this.token = token;
             })
+              this.retorno = true; 
+              this.alerta.alertaInicioSesion(this.credenciales.user.email); 
+              })
+        } catch (error) {
+          this.alerta.alertaInesperada(error);
+        }  
     }
 
   estaLogueado(){

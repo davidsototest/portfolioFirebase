@@ -4,10 +4,39 @@
 
 <div class="container text-center" id="pestania">
   <div class="row">
-    <div class="col">
+    <div class="col" *ngFor="let footerr of footer">
       <h5></h5>
-      <h5> <strong>{{ footer }} </strong>  </h5>
+      <h5> <strong>{{ footerr.footer }} </strong>  
+        <button class="btn" *ngIf="conectado()">
+          <img id="iconEditar" src="../../assets/icons-svg/edit.svg" alt="iconsPencel" href="#modalFooter" role="button" data-bs-toggle="modal" data-bs-target="#modalFooter" />
+        </button>
+      </h5> 
     </div>
   </div>
 </div>
 <br>
+
+<!-- Modal de footer -->
+
+<div class="modal" id="modalFooter" aria-hidden="true" aria-labelledby="modalFooterLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Footer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">        
+        <div  *ngFor="let footerr of footer">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Texto Footer:</label>
+            <input type="text"  class="form-control"  [(ngModel)]="footerr.footer" />
+          </div>  
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="updateFooter()">Guardar Cambios</button>
+      </div>
+    </div>  
+  </div>
+</div>
