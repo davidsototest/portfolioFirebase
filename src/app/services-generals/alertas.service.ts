@@ -148,6 +148,22 @@ export class AlertasService {
       });
     }
 
+    alertaBloqueado(){
+      Swal.fire({
+        icon: 'question',
+        title: 'Ups... Cuenta suspendida!',
+        text: 'Estas suspendido temperalmente, demasiados intentos fallidos! espera 24Hrs.',
+        showConfirmButton: true,
+        confirmButtonText: 'Cerrar',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      });
+    }
+
 
 
   constructor() { }

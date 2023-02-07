@@ -16,7 +16,7 @@ export class EducationComponent implements OnInit {
 
   conectado(){
     return this.loginService.estaLogueado();
-   }
+   } 
 
     constructor(
       private loginService:LoginServiceService,

@@ -21,7 +21,7 @@
       </div>
   </div>
 </div> 
-
+ 
 <!-- Model Login -->
 <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -31,18 +31,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="botonXcerrarIniciarSesion"></button>
       </div>
 
-      <div class="modal-body">
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" [(ngModel)]="form.email" name="ingresarEmail">
-          <label for="emailInput">Usuario</label>
+      <form novalidate (ngSubmit)="loginFirebase()" [formGroup]="form">
+
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" formControlName="user" name="ingresarEmail">
+            <label for="emailInput">Usuario</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password" formControlName="password" name="ingresarClave">
+            <label for="passwordInput">Contraseña</label>
+          </div>
         </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="passwordInput" placeholder="Password" [(ngModel)]="form.password" name="ingresarClave">
-          <label for="passwordInput">Contraseña</label>
-        </div>
-      </div>
+
+    </form>
+
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" (click)="loginFirebase()" name="botonIniciarSesionModal">Iniciar Sesión</button>
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" [disabled]="form.invalid" (click)="loginFirebase()" name="botonIniciarSesionModal">Iniciar Sesión</button>
       </div>
     </div>
   </div>
@@ -63,7 +68,7 @@
             <img class="iconosContactos" src="https://firebasestorage.googleapis.com/v0/b/frontendportfolio-e949c.appspot.com/o/IconsRedesSociales%2Fgmail.svg?alt=media&token=58b472f7-f2a0-4457-8688-749c9fdea314" alt="iconogmail" name="iconoGmail">
           </div>
           <div class="col-10">
-            <a href=" {{ contact.email_contact }} " target="_blank" name="emailDB"> {{ contact.email_contact }}  </a>
+            <a href="mailto:{{ contact.email_contact }}"> {{ contact.email_contact }} </a>
           </div>
         </div>
         

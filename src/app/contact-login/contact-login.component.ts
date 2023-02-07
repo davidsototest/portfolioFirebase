@@ -5,6 +5,9 @@ import { LoginServiceService } from '../services-generals/login-service.service'
 import { AuthFirebaseService } from '../services-generals/auth-firebase.service';
 import { AlertasService } from '../services-generals/alertas.service';
 import Contact from '../Models/contacts';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { __values } from 'tslib';
+import { user } from '@angular/fire/auth';
 // import { AuthFirebaseService } from '../services-generals/auth-firebase.service';
 
 @Component({
@@ -16,10 +19,14 @@ export class ContactLoginComponent implements OnInit {
   contacts: Contact[];
 
   credenciales:any;
-  form:any = {
-    email: "",
-    password: "",
-  }
+  form: FormGroup;
+  user:string;
+  password:string;
+
+  // form:any = { 
+  //   email: "",
+  //   password: "",
+  // }
   
   constructor(
     private loginService:LoginServiceService,
@@ -27,24 +34,30 @@ export class ContactLoginComponent implements OnInit {
     private auth:AuthFirebaseService,
     private alerta:AlertasService
     ) {
+      this.form = new FormGroup({
+        user: new FormControl('user', [Validators.required, Validators.minLength(7)]),
+        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      });
+      
     // this.serviceBackend.getContact().subscribe(resp=>{
     //   this.contacts = resp;
     //   console.log (this.contacts); 
     // });
    } 
 
-  // Inicio de sesion
+  // Inicio de sesione
   loginFirebase(){
+    this.loginService.loginFirebaseService(this.form.value);
 
-    if(this.form.email.length > 8 && this.form.password.length >= 6){
-      this.loginService.loginFirebaseService(this.form.email, this.form.password);
+    // if(this.form.user.length > 8 && this.form.password.length >= 6){
+    //   this.loginService.loginFirebaseService(this.form.email, this.form.password);
 
-    } else if (this.form.email.length <= 8){
-      this.alerta.alertaEmail();
+    // } else if (this.form.email.length <= 8){
+    //   this.alerta.alertaEmail();
 
-    } else if (this.form.password.length < 6) {
-     this.alerta.alertaContrasena();
-    } 
+    // } else if (this.form.password.length < 6) {
+    //  this.alerta.alertaContrasena();
+    // } 
   }
     
   
@@ -75,7 +88,6 @@ export class ContactLoginComponent implements OnInit {
   ngOnInit(): void {
     this.actualizarDBservice.getContacts().subscribe(resp =>{
       this.contacts = resp;
-     })
-     console.log(this.contacts);
+     });
   }
 }
