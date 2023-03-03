@@ -1,14 +1,5 @@
 {
   "projects": {
     "default": "portfolio-ds2023"
-  },
-  "targets": {
-    "portfolio-ds2023": {
-      "hosting": {
-        "portfolio-FrontEnd": [
-          "portfolio-ds2023"
-        ]
-      }
-    }
   }
 }

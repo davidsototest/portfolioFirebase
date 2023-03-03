@@ -116,7 +116,7 @@ export class ActualizarDBService {
       } 
     }
 
-    //Servicios de Educacion///////////
+    //Servicios de Educación///////////
     getEducation(): Observable<EducationModel[]> {
       let educationRef = collection(this.firestore, 'educations');
       return collectionData(educationRef, { idField: 'id' }) as Observable<EducationModel[]>;
