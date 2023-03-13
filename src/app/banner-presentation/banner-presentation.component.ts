@@ -5,6 +5,8 @@ import { LoginServiceService } from '../services-generals/login-service.service'
 import { ServiceBackEndService } from '../services-generals/service-back-end.service';
 import { AlertasService } from '../services-generals/alertas.service';
 import BannerPresentation from '../Models/BannerPresentation';
+import { NgxSpinnerService } from "ngx-spinner";
+import { SpinnerServiceService } from '../services-generals/spinner-service.service';
 
 @Component({
   selector: 'app-banner-presentation',
@@ -18,7 +20,8 @@ export class BannerPresentationComponent implements OnInit {
     private loginService:LoginServiceService,
     private serviceBackend:ServiceBackEndService,
     private actualizarDBservice: ActualizarDBService,
-    private alerta:AlertasService
+    private alerta:AlertasService,
+    private spinner:SpinnerServiceService
     ) {      
      }
      //estados de los botones editar
@@ -31,8 +34,11 @@ export class BannerPresentationComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.spinner.llamarSpinner();
+
     this.actualizarDBservice.getBanner().subscribe(resp =>{
       this.bannerPresentation = resp;
-     })    
+     })  
+     
   }
 }
